@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-teste-deployment  # Nomes ajustados para seguir as regras
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-teste
+  template:
+    metadata:
+      labels:
+        app: api-teste
+    spec:
+      containers:
+      - name: api-teste-container  # Nome do container ajustado
+        image: api_teste:latest
+        ports:
+        - containerPort: 8000
