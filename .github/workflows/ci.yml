@@ -14,17 +14,19 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout api_teste repository
+    - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
-    - name: Checkout repomani repository
+    - name: Checkout private repository (repomani)
       uses: actions/checkout@v4
       with:
         repository: Lucasecdev/repomani
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
         path: repomani
 
     - name: Set up Python 3.10
