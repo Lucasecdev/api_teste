@@ -64,12 +64,30 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/api_teste:latest
 
-    - name: Create and push tag
-      if: github.ref == 'refs/heads/main' && success()
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-      run: |
-        git config --global user.email "lucasvinisocial@gmail.com"
-        git config --global user.name "Lucasecdev"
-        git tag -a v1.0.$(date +%s) -m "Automatic tag from GitHub Actions"
-        git push origin --tags
+ alterar_tag:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          repository: Lucasecdev/repomani
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+      - name: Set run number
+        run: echo "RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
+
+      - name: Modify yaml File
+        run: |
+          sed -i "s/^      tag: .*/      tag: $RUN_NUMBER/" ./fastapi/values.yaml
+
+      - name: Cat values.yaml to verify changes
+        run: cat ./fastapi/values.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "Lucasecdev"
+          git config user.email "lucasvinisocial@gmail.com"
+          git add ./fastapi/values.yaml
+          git commit -m "Update image name in yaml file"
+          git push
