@@ -50,7 +50,20 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-        
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/api_teste:latest
+
     - name: Create and push tag
       if: github.ref == 'refs/heads/main' && success()
       env:
@@ -60,4 +73,3 @@ jobs:
         git config --global user.name "Lucasecdev"
         git tag -a v1.0.$(date +%s) -m "Automatic tag from GitHub Actions"
         git push origin --tags
-        
