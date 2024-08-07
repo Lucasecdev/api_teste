@@ -50,3 +50,14 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+        
+    - name: Create and push tag
+      if: github.ref == 'refs/heads/main' && success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      run: |
+        git config --global user.email "lucasvinisocial@gmail.com"
+        git config --global user.name "Lucasecdev"
+        git tag -a v1.0.$(date +%s) -m "Automatic tag from GitHub Actions"
+        git push origin --tags
+        
