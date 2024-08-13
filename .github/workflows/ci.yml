@@ -79,7 +79,7 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/api_teste:latest
 
- alterar_tag:
+  - alterar_tag:
     runs-on: ubuntu-latest
     needs: build-and-push
     steps:
