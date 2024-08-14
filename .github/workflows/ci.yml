@@ -25,7 +25,7 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=lucasecdev_apigha
+            -Dsonar.projectKey=apigha_lucasecdev
             -Dsonar.organization=lucasecdev
 
   build:
