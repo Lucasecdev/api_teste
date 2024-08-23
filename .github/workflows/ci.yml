@@ -66,7 +66,7 @@ jobs:
         pytest
 
     - name: Log in to Docker Hub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -83,7 +83,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: Lucasecdev/repomani
           token: ${{ secrets.ACESS_TOKEN }}  # Use o secret correto aqui
