@@ -20,12 +20,11 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.ACESS_TOKEN }}  # Use o secret correto aqui
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use o secret correto aqui
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: .
           args: >
-            -Dsonar.projectKey=apigha_lucasecdev
+            -Dsonar.projectKey=lucasecdev_apigha
             -Dsonar.organization=lucasecdev
 
   build:
@@ -106,4 +105,3 @@ jobs:
           git add ./fastapi/values.yaml
           git commit -m "Update image name in yaml file"
           git push
-          
