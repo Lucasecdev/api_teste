@@ -93,15 +93,15 @@ jobs:
 
       - name: Modify yaml File
         run: |
-          sed -i "s/^      tag: .*/      tag: $RUN_NUMBER/" ./api_teste/values.yaml
+          sed -i "s/^      tag: .*/      tag: $RUN_NUMBER/" ./mychart/values.yaml
 
       - name: Cat values.yaml to verify changes
-        run: cat ./api_teste/values.yaml
+        run: cat ./mychart/values.yaml
 
       - name: Commit and Push Changes
         run: |
           git config user.name "Lucasecdev"
           git config user.email "lucasvinisocial@gmail.com"
-          git add ./api_teste/values.yaml
+          git add ./mychart/values.yaml
           git commit -m "Update image name in yaml file"
           git push
